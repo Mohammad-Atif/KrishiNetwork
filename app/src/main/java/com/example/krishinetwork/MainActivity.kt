@@ -69,10 +69,10 @@ class MainActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && requestCode == reqCode && data != null){
             imgBitmap = data.extras?.get("data") as Bitmap
-            viewModel.submitEntries(binding.txtInputName.text.toString(),
-                binding.txtInputEmail.text.toString(),
-                imgBitmap!!
-            )
+//            viewModel.submitEntries(binding.txtInputName.text.toString(),
+//                binding.txtInputEmail.text.toString(),
+//                imgBitmap!!
+//            )
 
         }
     }
