@@ -34,7 +34,8 @@ class CropRecyclerViewAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         {
             is CropViewHolder->{
                 holder.cropName.text= listOfMandi[position].hindi_name
-                holder.mandiDistance.text= listOfMandi[position].km.toString()
+                val distanceInKm=listOfMandi[position].km.toString()+" km"
+                holder.mandiDistance.text= distanceInKm
                 holder.lastDate.text= listOfMandi[position].last_date.toString()
                 val locationOfMandi= listOfMandi[position].market.toString()+","+listOfMandi[position].district.toString()+","+listOfMandi[position].state.toString()
                 holder.cropLocation.text= locationOfMandi
