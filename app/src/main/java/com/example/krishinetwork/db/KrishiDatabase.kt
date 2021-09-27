@@ -9,13 +9,13 @@ import com.example.krishinetwork.models.KrishiUser
 
 
 @Database(entities = [KrishiUser::class],
-version = 1)
+version = 3)
 abstract class KrishiDatabase : RoomDatabase() {
     abstract fun getKrishiDao (): KrishiDao
 
     companion object{
         fun getInstance(context: Context): KrishiDatabase{
-            return Room.databaseBuilder(context,KrishiDatabase::class.java,"KrishiDatabase").build()
+            return Room.databaseBuilder(context,KrishiDatabase::class.java,"KrishiDatabase").fallbackToDestructiveMigration().build()
         }
     }
 }
