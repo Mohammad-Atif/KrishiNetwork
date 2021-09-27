@@ -12,7 +12,10 @@ import androidx.core.app.ActivityCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.krishinetwork.databinding.ActivityMainBinding
+import com.example.krishinetwork.db.KrishiDatabase
+import com.example.krishinetwork.repository.KrishiRepository
 import com.example.krishinetwork.viewmodels.KrishiViewModel
+import com.example.krishinetwork.viewmodels.KrishiViewModelProvider
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,7 +28,12 @@ class MainActivity : AppCompatActivity() {
         binding= ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         hideViews()
-        viewModel=ViewModelProvider(this).get(KrishiViewModel::class.java)
+
+        val krishiRepository= KrishiRepository(KrishiDatabase.getInstance(application))
+
+        val krishiViewModelProvider=KrishiViewModelProvider(krishiRepository)
+
+        viewModel=ViewModelProvider(this,krishiViewModelProvider).get(KrishiViewModel::class.java)
 
         binding.btnCameraOpen.setOnClickListener {
             val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
