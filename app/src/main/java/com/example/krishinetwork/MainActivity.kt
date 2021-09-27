@@ -9,6 +9,7 @@ import android.provider.MediaStore
 import android.view.View
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.krishinetwork.databinding.ActivityMainBinding
 import com.example.krishinetwork.viewmodels.KrishiViewModel
@@ -34,6 +35,32 @@ class MainActivity : AppCompatActivity() {
         binding.btnSubmit.setOnClickListener {
             checkEntries()
         }
+
+        viewModel.userName.observe(this, Observer { name->
+            if(name!=null)
+            {
+                binding.txtNameSubmitted.visibility=View.VISIBLE
+                binding.txtNameShow.visibility=View.VISIBLE
+                binding.txtNameShow.text=name
+
+            }
+        })
+
+        viewModel.userEmail.observe(this, Observer {email->
+            if(email!=null)
+            {
+                binding.txtEmailSubmitted.visibility=View.VISIBLE
+                binding.txtEmailShow.visibility=View.VISIBLE
+                binding.txtEmailShow.text=email
+            }
+        })
+        viewModel.userImage.observe(this, Observer {
+            if(it!=null)
+            {
+                binding.imgUser.visibility=View.VISIBLE
+                binding.imgUser.setImageBitmap(it)
+            }
+        })
 
     }
 
@@ -73,6 +100,9 @@ class MainActivity : AppCompatActivity() {
             return
         }
 
+        viewModel.submitEntries(binding.txtInputName.text.toString(),
+        binding.txtInputEmail.text.toString(),
+        imgBitmap!!)
 
 
     }
