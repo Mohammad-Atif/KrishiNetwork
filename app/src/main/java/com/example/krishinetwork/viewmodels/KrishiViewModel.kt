@@ -13,6 +13,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.krishinetwork.models.KrishiUser
+import com.example.krishinetwork.models.OtherMandi
 import com.example.krishinetwork.repository.KrishiRepository
 import kotlinx.coroutines.launch
 import java.io.ByteArrayOutputStream
@@ -23,6 +24,7 @@ class KrishiViewModel(
     val userName:MutableLiveData<String> = MutableLiveData()
     val userEmail:MutableLiveData<String> = MutableLiveData()
     val userImage: MutableLiveData<Bitmap> = MutableLiveData()
+    val mandiList: MutableLiveData<List<OtherMandi>> = MutableLiveData()
     private val REQUEST_CODE = 200
 
 
@@ -66,6 +68,15 @@ class KrishiViewModel(
         }
     }
 
+    fun getMandiData()=viewModelScope.launch {
+        val newResponse = krishiRepository.getCropDetails()
+        if(newResponse.isSuccessful)
+        {
+            val newList= newResponse.body()?.data?.other_mandi
+            mandiList.postValue(newList!!)
+        }
+
+    }
 
 
     fun isValidEmail(email: String): Boolean {
@@ -78,6 +89,8 @@ class KrishiViewModel(
         val b = baos.toByteArray()
         return Base64.encodeToString(b, Base64.DEFAULT)
     }
+
+
 
     private fun stringToBitmap(string: String): Bitmap? {
         val imageBytes = Base64.decode(string, Base64.DEFAULT)

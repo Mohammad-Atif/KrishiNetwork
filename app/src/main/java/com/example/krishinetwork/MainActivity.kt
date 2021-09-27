@@ -70,6 +70,10 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
+        binding.btnFetch.setOnClickListener {
+            startActivity(Intent(this,CropDetailsActivity::class.java))
+        }
+
     }
 
 

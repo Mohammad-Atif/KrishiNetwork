@@ -9,4 +9,5 @@
     <string name="user_email">User Email</string>
     <string name="todo">TODO</string>
     <string name="fetch">FETCH</string>
+    <string name="crop_image">crop image</string>
 </resources>
